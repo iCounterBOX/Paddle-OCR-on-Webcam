@@ -21,10 +21,8 @@ The doc describes the necessary ToDo steps for various experiments ( development
 |VS 2019|
 ||
 |Word-file Translation into english with ASPOSE|
-
+  
 GTX 1660TI
-
-
 
 
 
