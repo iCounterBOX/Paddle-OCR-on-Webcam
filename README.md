@@ -1,4 +1,4 @@
-﻿**Paddle-OCR on Webcam (Win 10)**
+**Paddle-OCR on Webcam (Win 10)**
 
 The doc describes the necessary ToDo steps for various experiments ( development environment, libs , etc ) concerning paddle-OCR via webCam
 
@@ -22,12 +22,10 @@ The doc describes the necessary ToDo steps for various experiments ( development
 ||
 |Word-file Translation into english with ASPOSE|
 
-|<p><https://www.paddlepaddle.org.cn/documentation/docs/en/install/Tables_en.html></p><p></p><p>![](Aspose.Words.98b36e84-dc3a-4782-ab5a-a3e12814d7ff.002.png)</p><p></p>|<p>GTX 1660TI</p><p></p><p>“Tuning sm\_75”</p>|
-| :- | :- |
-**
+GTX 1660TI
 
 
-**
+
 
 
 
