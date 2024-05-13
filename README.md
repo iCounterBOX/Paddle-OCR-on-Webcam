@@ -1,4 +1,4 @@
-﻿**How2  	Anomaly Detection in Pre-Series  (ADPS) – AI Model LAB**
+﻿**How2  	OLD doc..in THIS moment we write the latest doc ..english... etc.. WAIT please**
 
 Date: 09.05.24
 
