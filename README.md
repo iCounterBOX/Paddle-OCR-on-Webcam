@@ -1,6 +1,8 @@
-**Paddle OCR on webcam (Win 10)**
+﻿**Paddle OCR on webcam (Win 10)**
 
 The document describes the backlog steps required for various experiments ( development environment, libraries, etc. ) related to paddle-OCR via webCam.
+
+Rev.: 05.06.24
 
 ![ref1]
 
@@ -9,11 +11,11 @@ The document describes the backlog steps required for various experiments ( deve
 |Acer Nitro 5 / GTX 1660 Ti (GPU available)|
 | :- |
 |Anaconda 3|
-|Payton 3.8|
+|Payton 3.8  (anaconda py382 )  bzw **py39pa**|
 |Spyder Editor|
 |<p>opencv 4.6.0        ( problem with conda install..mus use pip !! )<br><br>pip install opencv-contrib-python    / <https://stackoverflow.com/questions/23119413/how-do-i-install-python-opencv-through-conda></p><p><br><br></p>|
 |padelocr                 2.7.3|
-|rowing gpu          2.6.1|
+|gpu          2.6.1|
 |python 3.8.19|
 |spy 5.5.1|
 ||
@@ -22,12 +24,17 @@ The document describes the backlog steps required for various experiments ( deve
 ||
 |Word File English Translation with ASPOSE|
 
-|<p><https://www.paddlepaddle.org.cn/documentation/docs/en/install/Tables_en.html></p><p></p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.002.png)</p><p></p>|<p>GTX 1660TI</p><p></p><p>“Tuning sm\_75”</p>|
+|<p><https://www.paddlepaddle.org.cn/documentation/docs/en/install/Tables_en.html></p><p></p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.002.png)</p><p></p>|<p>GTX 1660TI</p><p></p><p>“Tuning sm\_75”</p>|
 | :- | :- |
 
 **
 
-**Last minute Extra issues after all was running fine  ( 13.05.24 ):** 
+**06.05.24**
+
+Briefly tested whether paddle OCR also runs under CUDA 11.8 . The result was  NEGATIVE. But switching  back from CUDA 11.8 to 11.2  was OK. We only  adapted the environment variables! Currently py39 is the version we work with!
+
+**13.05.24 
+Last minute Extra issues after all was running fine  ( 13.05.24 ):** 
 
 **After running auto-py-to\_exe ..it requires lots of packages extra for the conversion. This was not alerted during the conversion process.. it was dropwise fired when exe was running ( crashed ).**
 
@@ -39,58 +46,76 @@ The document describes the backlog steps required for various experiments ( deve
 
 **Here is my last py38 setup with only pip installs:**   
 
-**pip install opencv-contrib-python**
-
-**pip install scikit-image**
-
-**pip install paddlepaddle-gpu -i https://pypi.tuna.tsinghua.edu.cn/simple**
-
-**pip install paddleocr**  
-
-**pip install pytesseract**
-
-**pip install auto-py-to-exe**
+pip install -r requirements.txt     ( IN the paddleOCR subfolder ! ) ?? can not remember if I made this ??
+**pip install opencv-contrib-python
+pip install scikit-image
+pip install paddlepaddle-gpu -i <https://pypi.tuna.tsinghua.edu.cn/simple>
+pip install paddleocr  
+pip install pytesseract
+pip install auto-py-to-exe**
 
 **auto-py-to\_exe is now also ok and running:**
 
-**command:**
+**command: auto-py-to-exe**
 
-**pyinstaller --noconfirm --onedir --console --collect-all "paddleocr" --hidden-import "scipy.io" --hidden-import "pyclipper" --collect-data "paddle" --hidden-import "scipy" --collect-all "scipy" --hidden-import "skimage" --collect-all "skimage" --hidden-import "imgaug" --collect-all "imgaug" --hidden-import "lmdb" --collect-all "lbdb"  "D:/ALL\_PROJECT/pyQT5\_experimental/ai/paddle4github/ppOCR\_webcam.py"**
+***pyinstaller --noconfirm --onedir --console --collect-all "paddleocr" --hidden-import "scipy.io" --hidden-import "pyclipper" --collect-data "paddle" --hidden-import "scipy" --collect-all "scipy" --hidden-import "skimage" --collect-all "skimage" --hidden-import "imgaug" --collect-all "imgaug" --hidden-import "lmdb" --collect-all "lbdb"  "D:/ALL\_PROJECT/pyQT5\_experimental/ai/paddle4github/ppOCR\_webcam.py"***
 
-![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.003.png)
+![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.003.png)
 
-![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.004.png)
+![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.004.png)
 
-**Now App is working in Python anaconda spyder and/or as a EXE-file**
+**Now App is working in Python anaconda spyder and/or as a EXE-file. Don’t forget to copy paddleOCR (githubClone) into the EXE folder:**
 
-**Don’t forget to copy paddleOCR (githubClone) into the EXE folder:**
-
-![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.005.png)
-
+![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.005.png)
 **
 
 
-**OCR/Webcam palette in Win 10**
 
-|<p><https://github.com/PaddlePaddle/PaddleOCR/blob/main/doc/doc_en/environment_en.md></p><p></p><p>combination specified there. ( CUDA 10.2/ cuDNN 7.6) did NOT work in my environment </p><p>*f you have CUDA 9 or CUDA 10 installed on your machine, run the following command to install*</p><p>*python -m pip install paddlepaddle-gpu -i https://pypi.tuna.tsinghua.edu.cn/simple*</p><p></p><p>*…this is installing paddlepaddle-gpu          2.6.1*</p><p></p>|<p>**Adjust** versions!</p><p>Confusion in Cuda - version information at Paddle Docs</p><p></p><p>10 did NOT work for me.</p><p>Only the errors that appeared after installation 10 told me the correct version of Cuda ...</p>|
-| :- | :- |
+**PaddleOCR/Webcam /Win 10**
 
-##### **In shorts :  setup in CUDA 11.2 and cuDNN 8 was OK on my side**
+We faced some confusion concerning the CUDA-Version.  ( recommended CUDA 10.2/ cuDNN 7.6  did NOT work in my environment for daddle!?.
+
+Misleading: <https://github.com/PaddlePaddle/PaddleOCR/blob/main/doc/doc_en/environment_en.md>
+
+Finally THIS  was my successful setup:
+
+***CUDA 11.2 and cuDNN 8***
+
 
 **Below are some notes I made during installation.**
 
-|<p>- Visual studio 2019</p><p>&emsp;- Anaconda py38 environment invest</p><p>&emsp;- Install <br>&emsp;  CUDA 11.2 and cuDNN 8 on Win <https://developer.nvidia.com/rdp/cudnn-archive></p><p>&emsp;- copy some cuDNN libraries into conda toolkit in Win <br>&emsp;  [https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows ](https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows)<br>&emsp;  ( but be careful .. look nor the comment relating to . atmosphere variables …)</p><p>&emsp;- Install in py38 env : <br>&emsp;  pip install paddleocr    # install  (2.7.3)<br>&emsp; </p><p>&emsp;- Install in py38 env : <br>&emsp;  python -m pip install paddlepaddle-gpu -i https://pypi.tuna.tsinghua.edu.cn/simple</p><p>&emsp;&emsp;</p><p>&emsp;- set win environment variables for  nvidia</p><p>&emsp;- gpu test</p><p></p>|Individual steps – order is sometimes important. <br>For example, VS 2019 should be there before CUDA!||
+Individual steps – order is sometimes important.  For example, VS 2019 should be there before CUDA!
+
+-Visual studio 2019 ( Install BEVORE the cuda/cudnn )
+-Anaconda py38 environment 
+-CUDA 11.2 and cuDNN 8 on Win <https://developer.nvidia.com/rdp/cudnn-archive>
+-copy some cuDNN libraries into conda toolkit in Win 
+
+[https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows ](https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows)
+
+( but be careful .. look nor the comment relating to . environment variables …)
+
+-Install in py38 env : pip install paddleocr    # install  (2.7.3)
+
+-Install in py38 env : python -m pip install paddlepaddle-gpu -i <https://pypi.tuna.tsinghua.edu.cn/simple>
+
+-set win environment variables for  nvidia
+
+-gpu test
+
+||||
 | :- | :- | :- |
-|![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.006.png)|<p>win10 environment variables</p><p></p>||
+|<p><https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html?highlight=turing></p><p></p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.006.png)</p><p></p><p></p>|<p>Support Matrix</p><p></p><p>GPU, CUDA Toolkit, and CUDA Driver RequirementsÁ</p><p></p><p>The following sections highlight the compatibility of NVIDIA cuDNN versions with the various supported NVIDIA CUDA Toolkit, CUDA driver, and NVIDIA hardware versions.</p>||
+|![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.007.png)|<p>win10 environment variables</p><p></p>||
 |<p><https://developer.nvidia.com/rdp/cudnn-archive></p><p><https://developer.nvidia.com/cuda-11.2.0-download-archive></p><p><https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows></p><p></p><p></p>|<p>cuDNN architecture download</p><p>CUDA 11.2 and cuDNN 8</p><p>Tools kit</p>||
-|<p><https://www.techspot.com/downloads/7241-visual-studio-2019.html></p><p></p><p></p><p></p>|![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.007.png)||
-|<p><https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows></p><p>· Copy the following files from the unzipped package to the NVIDIA cuDNN directory .<a name="installwindows__substeps_zcd_xzm_s1b"></a> </p><p>a. Copy bin\cudnn\*.dll to C:\Program Files\NVIDIA\CUDNN\v8.x\bin .</p><p>b. Copy include\ cudnn \*.h to C:\Program Files\NVIDIA\CUDNN\v8.x\include .</p><p>c. Copy lib\x64\cudnn\*.lib to C:\Program Files\NVIDIA\CUDNN\v8.x\lib\x64 .</p><p>Yt how2:</p><p><https://www.youtube.com/watch?v=ctQi9mU7t9o></p><p></p><p></p>|<p>NVIDIA CUDNN doc/installation in C?</p><p></p><p>That didn't work for me ...</p><p>see screenshot of my environment above</p>||
+|<p><https://www.techspot.com/downloads/7241-visual-studio-2019.html></p><p></p><p></p><p></p>|![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.008.png)||
+|<p><https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-840/install-guide/index.html#install-windows></p><p></p><p>Copy the following files from the unzipped package to the NVIDIA cuDNN directory .<a name="installwindows__substeps_zcd_xzm_s1b"></a> </p><p>a. Copy bin\cudnn\*.dll to C:\Program Files\NVIDIA\CUDNN\v8.x\bin .</p><p>b. Copy include\ cudnn \*.h to C:\Program Files\NVIDIA\CUDNN\v8.x\include .</p><p>c. Copy lib\x64\cudnn\*.lib to C:\Program Files\NVIDIA\CUDNN\v8.x\lib\x64 .</p><p>Yt how2:</p><p><https://www.youtube.com/watch?v=ctQi9mU7t9o></p><p></p><p></p>|<p>NVIDIA CUDNN doc/installation in C?</p><p></p><p>That didn't work for me ...</p><p>see screenshot of my environment above</p>||
 |<p>python -c "import platform; print (platform.architecture()[0]); print(platform.machine())"</p><p></p>|<p>Test compatible - ok</p><p>64 bit</p><p>AMD64</p>||
-|<p>nvidia-smi</p><p></p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.008.png)</p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.009.png)</p><p></p><p>nvcc - version</p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.010.png)</p>|<p>CUDA/ envy test Etc</p><p></p><p>nvidia-smi</p><p>nvcc - version</p><p></p><p>Affair :</p><p></p><p>Invidia-smi still shows 11.6. Lots of discussion on GitHub about it. Apparently it doesn't matter as long as nvcc shows the right thing!</p><p>Maybe ...continue for now... it still says 11.6 even though everything works in 11.2!?</p><p></p><p>We already had these problems.</p><p>5 years ( <https://github.com/iCounterBOX/TensorFlow_CarOccupancyDetector_V2> )</p><p></p>||
-|<p>Fix issues that block programs from installing or removing</p><p></p><p><https://support.microsoft.com/en-gb/topic/fix-problems-that-block-programs-from-being-installed-or-removed-cca7d1b6-65a9-3d98-426b-e9f927e1eb4d></p><p></p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.011.png)</p><p></p><p>*not the device driver... but things that arrived for 2022 (for example) should be removed*</p>|<p>What to do if CUDA ( nvidia ) version / installation is wrong ?</p><p></p><p>Apps must be uninstalled individually!</p><p>Some are locked and cannot be easily uninstalled.</p><p>Microsoft's program did that.</p>||
-|<p><h3>**addleocr -- image\_dir ./ imgs\_en /img\_12.jpg -- use\_angle\_cls true --lang is --use\_gpu false.false**</h3></p><p><h3></h3></p><p><h3></h3></p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.012.png)</p><p></p>|<p>**Try WITHOUT GPU okJ**</p><p></p><p>[**https://github.com/PaddlePaddle/PaddleOCR/blob/main/doc/doc_en/quickstart_en.md#21-use-by-command-line**](https://github.com/PaddlePaddle/PaddleOCR/blob/main/doc/doc_en/quickstart_en.md#21-use-by-command-line)</p><p></p>||
-|<p><h3>**RuntimeError : ( PreconditionNotMet ) The third-party dynamic library (cudnn64\_8.dll) that Paddle depends on is not configured correctly. ( error code is 126)**</h3></p><p><h3>**Suggestions:**</h3></p><p><h3>**1. Check whether the third-party dynamic library (e.g. CUDA, CUDNN) is installed correctly and whether its version matches the paddlepaddle you installed.**</h3></p><p><h3>**2. Configure the third-party dynamic library environment variables as follows:**</h3></p><p><h3>**- Linux: set LD\_LIBRARY\_PATH using `export LD\_LIBRARY\_PATH=...`**</h3></p><p><h3>**- Windows: set PATH using `set PATH=XXX; (in .. \paddle\phi\ backends \ dynload \dynamic\_loader.cc:312)**</h3></p><p></p><p>We verify:</p><p></p><p>count list</p><p>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.013.png)</p><p></p><p>We are looking for compatibility.</p><p><https://www.paddlepaddle.org.cn/documentation/docs/en/install/Tables_en.html></p><p></p><p>*paddlepaddle-gpu ==[version code], such as paddlepaddle-gpu ==2.6.1 The default installation supports the 	PaddlePaddle installation package corresponding to [version number] of CUDA 11.2 and cuDNN 8*</p><p></p><p></p>|<p>**Testing with GPU showed an error . The CUDA version was still 10. This error message gave us the correct/compatible version cuda version !**</p><p></p><p>**paddleocr -- image\_dir ./drug1.jpg -- use\_angle\_cls true -- long es -- use\_gpu TRUE**</p><p></p><p></p><p></p><p>**So, the above document in paddle OCR didn't work for me... following the error message, now I will install CUDA 11.2 and cuDNN 8**</p>||
-|<h3>![](Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.014.png)</h3>|<p>Cuda 11.2.. it seems better</p><p></p><p>...this is what the message should look like</p><p></p>||
+|<p>nvidia-smi</p><p></p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.009.png)</p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.010.png)</p><p></p><p>nvcc - version</p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.011.png)</p>|<p>CUDA/ envy test Etc</p><p></p><p>nvidia-smi</p><p>nvcc --version</p><p></p><p>Affair :</p><p></p><p>nvidia-smi still shows 11.6. Lots of discussion on GitHub about it. Apparently it doesn't matter as long as nvcc shows the right thing!</p><p>Maybe ...continue for now... it still says 11.6 even though everything works in 11.2!?</p><p></p><p>We already had these problems.</p><p>5 years ( <https://github.com/iCounterBOX/TensorFlow_CarOccupancyDetector_V2> )</p><p></p>||
+|<p>Fix issues that block programs from installing or removing</p><p></p><p><https://support.microsoft.com/en-gb/topic/fix-problems-that-block-programs-from-being-installed-or-removed-cca7d1b6-65a9-3d98-426b-e9f927e1eb4d></p><p></p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.012.png)</p><p></p><p>*not the device driver... but things that arrived for 2022 (for example) should be removed*</p>|<p>What to do if CUDA ( nvidia ) version / installation is wrong ?</p><p></p><p>Apps must be uninstalled individually!</p><p>Some are locked and cannot be easily uninstalled.</p><p>Microsoft's program did that.</p>||
+|<p><h3>**addleocr -- image\_dir ./ imgs\_en /img\_12.jpg -- use\_angle\_cls true --lang is --use\_gpu false.false**</h3></p><p><h3></h3></p><p><h3></h3></p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.013.png)</p><p></p>|<p>**Try WITHOUT GPU okJ**</p><p></p><p>[**https://github.com/PaddlePaddle/PaddleOCR/blob/main/doc/doc_en/quickstart_en.md#21-use-by-command-line**](https://github.com/PaddlePaddle/PaddleOCR/blob/main/doc/doc_en/quickstart_en.md#21-use-by-command-line)</p><p></p>||
+|<p><h3>**RuntimeError : ( PreconditionNotMet ) The third-party dynamic library (cudnn64\_8.dll) that Paddle depends on is not configured correctly. ( error code is 126)**</h3></p><p><h3>**Suggestions:**</h3></p><p><h3>**Check whether the third-party dynamic library (e.g. CUDA, CUDNN) is installed correctly and whether its version matches the paddlepaddle you installed.**</h3></p><p><h3>**Configure the third-party dynamic library environment variables as follows:**</h3></p><p><h3>**- Windows: set PATH using `set PATH=XXX; (in .. \paddle\phi\ backends \ dynload \dynamic\_loader.cc:312)**</h3></p><p></p><p>We verify:</p><p></p><p>Conda list</p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.014.png)</p><p></p><p>We are looking for compatibility.</p><p><https://www.paddlepaddle.org.cn/documentation/docs/en/install/Tables_en.html></p><p></p><p>*paddlepaddle-gpu ==[version code], such as paddlepaddle-gpu ==2.6.1 The default installation supports the 	PaddlePaddle installation package corresponding to [version number] of CUDA 11.2 and cuDNN 8*</p><p></p><p></p>|<p>**Testing with GPU showed an error . The CUDA version was still 10. This error message gave us the correct/compatible version cuda version !**</p><p></p><p>**paddleocr -- image\_dir ./drug1.jpg -- use\_angle\_cls true -- long es -- use\_gpu TRUE**</p><p></p><p></p><p></p><p>**So, the above document in paddle OCR didn't work for me... following the error message, now I will install CUDA 11.2 and cuDNN 8**</p>||
+|<h3>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.015.png)</h3>|<p>Cuda 11.2.. it seems better</p><p></p><p>...this is what the message should look like</p><p></p>||
 
 
 
@@ -149,7 +174,7 @@ The document describes the backlog steps required for various experiments ( deve
 
 **Result: correct**
 
-|D:\ALL\_PROJECT\a\_Bosch\pyQT5\_experimental\ai\paddle|code folder (..for my own remember me ..)|
+|D:\ALL\_PROJECT\a\_xxxx\pyQT5\_experimental\ai\paddle|code folder (..for my own remember me ..)|
 | :- | :- |
 |||
 |||
@@ -157,8 +182,7 @@ The document describes the backlog steps required for various experiments ( deve
 
 **Conclusion :**
 
-The installation is simple . 
-With the right links and versions, we end up with a good LIVE CAM OCR result.
+The installation is simple .  With the right links and versions, we end up with a good LIVE CAM OCR result.
 
 References :
 
@@ -170,5 +194,5 @@ References :
 |||
 |<p><https://nitratine.net/blog/post/issues-when-using-auto-py-to-exe/#google_vignette></p><p></p>|Issues When Using auto-py-to-exe|
 
-[ref1]: Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.001.png
-[ref2]: Aspose.Words.dded1f58-1b26-4a7f-9eaf-5dd43d292893.015.png
+[ref1]: Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.001.png
+[ref2]: Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.016.png
