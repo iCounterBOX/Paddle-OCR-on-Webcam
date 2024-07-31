@@ -27,7 +27,10 @@ Rev.: 05.06.24
 |<p><https://www.paddlepaddle.org.cn/documentation/docs/en/install/Tables_en.html></p><p></p><p>![](Aspose.Words.52f4a8dd-6188-4581-89d5-a60685f2cd49.002.png)</p><p></p>|<p>GTX 1660TI</p><p></p><p>“Tuning sm\_75”</p>|
 | :- | :- |
 
-**
+**31.07.24**
+
+current local folder ( docu 4 me ): D:\ALL_PROJECT\a_Factory\_paddle4Github\py382
+
 
 **06.05.24**
 
